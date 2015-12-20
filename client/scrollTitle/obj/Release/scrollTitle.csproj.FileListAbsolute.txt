@@ -1,0 +1,8 @@
+F:\电子科大数学科学学院\迎新晚会2016\scrollTitle\client\scrollTitle\bin\Release\scrollTitle.exe.config
+F:\电子科大数学科学学院\迎新晚会2016\scrollTitle\client\scrollTitle\bin\Release\scrollTitle.exe
+F:\电子科大数学科学学院\迎新晚会2016\scrollTitle\client\scrollTitle\bin\Release\scrollTitle.pdb
+F:\电子科大数学科学学院\迎新晚会2016\scrollTitle\client\scrollTitle\obj\Release\scrollTitle.Form1.resources
+F:\电子科大数学科学学院\迎新晚会2016\scrollTitle\client\scrollTitle\obj\Release\scrollTitle.Properties.Resources.resources
+F:\电子科大数学科学学院\迎新晚会2016\scrollTitle\client\scrollTitle\obj\Release\scrollTitle.csproj.GenerateResource.Cache
+F:\电子科大数学科学学院\迎新晚会2016\scrollTitle\client\scrollTitle\obj\Release\scrollTitle.exe
+F:\电子科大数学科学学院\迎新晚会2016\scrollTitle\client\scrollTitle\obj\Release\scrollTitle.pdb
