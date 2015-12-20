@@ -16,9 +16,9 @@ windows桌面弹幕
 
 打开scrollTitle.exe即可
 
-主机名填入你自己的主机地址或ip，以http://或者https://开头（如http://guessever.me/danmu）
+主机名填入你自己的主机地址或ip，以http://或者https://开头（如http://guessever.me/danmu ）
 
 token填入你在服务器上的配置
 
-发射弹幕的地址即为你所填的主机名（如http://guessever.me/danmu）
+发射弹幕的地址即为你所填的主机名（如http://guessever.me/danmu ）
 
