@@ -125,17 +125,59 @@ namespace scrollTitle
             this.timer2.Enabled = true;
         }
 
+        // 初始化弹幕
+        public void Form1_ready_to_shoot()
+        {
+            this.WindowState = FormWindowState.Maximized;
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.TransparencyKey = this.BackColor;
+        }
+        public void Form1_finish()
+        {
+            this.WindowState = FormWindowState.Normal;
+            this.FormBorderStyle = FormBorderStyle.Sizable;
+            this.TransparencyKey = Color.White;
+        }
+
+        // 创建一个控制窗口
+        public void create_control_Form()
+        {
+            // Form1_ready_to_shoot();
+            Form controlForm = new Form();
+            controlForm.Width = 400;
+            controlForm.Show();
+
+            Label info = new Label();
+            info.Width = controlForm.Width;
+            info.Top = 10;
+            info.AutoSize = true;
+            info.Text = "（如果您是扩展屏幕，请先把弹幕窗口拖到要放映的屏幕上）";
+            controlForm.Controls.Add(info);
+
+            Button readyBtn = new Button();
+            readyBtn.Text = "初始化弹幕";
+            readyBtn.Top = 30;
+            controlForm.Controls.Add(readyBtn);
+
+            Button closeBtn = new Button();
+            closeBtn.Text = "关闭弹幕";
+            closeBtn.Top = 60;
+            controlForm.Controls.Add(closeBtn);
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             SetWindowPos(this.Handle, -1, 0, 0, 0, 0, 1 | 2); //最后参数也有用1 | 4　
             //SetPenetrate();
             this.timer1.Interval = 10;
             this.timer1.Enabled = true;
-            this.WindowState = FormWindowState.Maximized;
-            this.FormBorderStyle = FormBorderStyle.None;
-            this.TransparencyKey = this.BackColor;
 
+            create_control_Form();
+
+            // this.timer2.Interval = 500;
+            // this.timer2.Enabled = true;
             getData();
+
             this.timer3.Interval = 500;
             this.timer3.Enabled = true;
         }
