@@ -13,7 +13,7 @@
 		<p><br></p>
 		<p>输入文字，点击发射，引爆全场！！！</p>
 		<form action="" method="post">
-			<p><input type="text" name="text"></p>
+			<p><input type="text" name="text" autofocus></p>
 			<p><input type="submit" value="发射"></p>
 		</form>
 	</body>
