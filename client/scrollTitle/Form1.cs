@@ -157,6 +157,7 @@ namespace scrollTitle
             Button readyBtn = new Button();
             readyBtn.Text = "初始化弹幕";
             readyBtn.Top = 30;
+            readyBtn.Click = Form1_ready_to_shoot();
             controlForm.Controls.Add(readyBtn);
 
             Button closeBtn = new Button();
