@@ -12,6 +12,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.IO;
+using System.Text;
 
 
 namespace scrollTitle
@@ -80,7 +81,7 @@ namespace scrollTitle
             currentLabel.AutoSize = true;
             currentLabel.Top = random.Next(0, 200);
             currentLabel.Left = this.Width - 100;
-            currentLabel.Font = new Font("微软雅黑", 20, FontStyle.Bold);
+            currentLabel.Font = new Font("微软雅黑", fontSize, FontStyle.Bold);
             currentLabel.ForeColor = Color.Blue;
             //currentLabel.Image = Image.FromFile("transparentBackground.png");
             currentLabel.BackColor = Color.Transparent;
@@ -105,6 +106,7 @@ namespace scrollTitle
         string url = "";
         string hostname = "";
         string token = "";
+        int fontSize = 20;
         // 从服务器获取数据
         public void getData()
         {
@@ -129,6 +131,32 @@ namespace scrollTitle
 
             this.timer2.Interval = 3000;
             this.timer2.Enabled = true;
+        }
+        private void getConfigFromFile()
+        {
+            string filename = "info.txt";
+            StreamReader sr = new StreamReader(filename, Encoding.Default);
+            string input_hostname = "", input_token = "";
+            try
+            {
+                input_hostname = sr.ReadLine();
+                input_token = sr.ReadLine();
+            }
+            catch
+            {
+            }
+
+            foreach (Control item in controlForm.Controls)
+            { // 原谅我太傻比，只能这么写
+                if (item.Name == "input_hostname")
+                {
+                    item.Text = input_hostname;
+                }
+                if (item.Name == "input_token")
+                {
+                    item.Text = input_token;
+                }
+            }
         }
         private void saveInfo(object sender, EventArgs e)
         {
@@ -239,6 +267,8 @@ namespace scrollTitle
             input_token.Name = "input_token";
             input_token.Text = "";
             controlForm.Controls.Add(input_token);
+
+            getConfigFromFile();
 
 
             Button infoBtn = new Button();
