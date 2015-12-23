@@ -12,8 +12,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.IO;
-using System.Text;
-
 
 namespace scrollTitle
 {
@@ -70,7 +68,6 @@ namespace scrollTitle
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern System.IntPtr GetForegroundWindow();
 
-
         Random random = new Random();
         // 输出文字
         public void shoot(string str)
@@ -82,10 +79,10 @@ namespace scrollTitle
             currentLabel.Top = random.Next(0, 200);
             currentLabel.Left = this.Width - 100;
             currentLabel.Font = new Font("微软雅黑", fontSize, FontStyle.Bold);
-            currentLabel.ForeColor = Color.Blue;
+            currentLabel.ForeColor = fontColor;
             //currentLabel.Image = Image.FromFile("transparentBackground.png");
             currentLabel.BackColor = Color.Transparent;
-            currentLabel.Tag = random.Next(3, 10);
+            currentLabel.Tag = random.Next(3, 9);
             currentLabel.Text = str;
             this.Controls.Add(currentLabel);
         }
@@ -106,7 +103,8 @@ namespace scrollTitle
         string url = "";
         string hostname = "";
         string token = "";
-        int fontSize = 20;
+        int fontSize = 30;
+        Color fontColor = Color.Blue;
         // 从服务器获取数据
         public void getData()
         {
@@ -169,6 +167,19 @@ namespace scrollTitle
                 if (item.Name == "input_token")
                 {
                     token = item.Text;
+                }
+                if (item.Name == "input_fontSize")
+                {
+                    if (item.Text == "大") fontSize = 40;
+                    else if (item.Text == "中") fontSize = 30;
+                    else if (item.Text == "小") fontSize = 20;
+                }
+                if (item.Name == "input_fontColor")
+                {
+                    if (item.Text == "蓝色") fontColor = Color.Blue;
+                    else if (item.Text == "黄色") fontColor = Color.Yellow;
+                    else if (item.Text == "黑色") fontColor = Color.Black;
+                    else if (item.Text == "白色") fontColor = Color.White;
                 }
             }
             if (hostname.Length < 8)
@@ -256,17 +267,43 @@ namespace scrollTitle
 
             Label label_token = new Label();
             label_token.Text = "Token：";
-            label_token.Top = 120;
+            label_token.Top = 110;
             label_token.Left = 100;
             label_token.AutoSize = true;
             controlForm.Controls.Add(label_token);
             TextBox input_token = new TextBox();
-            input_token.Top = 140;
+            input_token.Top = 130;
             input_token.Left = 100;
             input_token.Width = 200;
             input_token.Name = "input_token";
             input_token.Text = "";
             controlForm.Controls.Add(input_token);
+
+            Label label_font = new Label();
+            label_font.Text = "字体：";
+            label_font.Top = 160;
+            label_font.Left = 100;
+            label_font.AutoSize = true;
+            controlForm.Controls.Add(label_font);
+
+            ComboBox input_fontSize = new ComboBox();
+            input_fontSize.Top = 155;
+            input_fontSize.Left = 100 + label_font.Width;
+            input_fontSize.Width = 50;
+            input_fontSize.Name = "input_fontSize";
+            input_fontSize.Items.Add("大"); input_fontSize.Items.Add("中"); input_fontSize.Items.Add("小");
+            input_fontSize.SelectedText = "中";
+            controlForm.Controls.Add(input_fontSize);
+
+            ComboBox input_fontColor = new ComboBox();
+            input_fontColor.Top = 155;
+            input_fontColor.Left = 100 + label_font.Width + input_fontSize.Width + 10;
+            input_fontColor.Width = 50;
+            input_fontColor.Name = "input_fontColor";
+            input_fontColor.Items.Add("蓝色"); input_fontColor.Items.Add("黄色");
+            input_fontColor.Items.Add("黑色"); input_fontColor.Items.Add("白色");
+            input_fontColor.SelectedText = "蓝色";
+            controlForm.Controls.Add(input_fontColor);
 
             getConfigFromFile();
 
