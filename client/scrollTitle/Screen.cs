@@ -36,8 +36,8 @@ namespace scrollTitle
         private void initScreen()
         {
             this.TransparencyKey = this.BackColor;
-            bringToFront();
-            resizeToFullScreen();
+            this.bringToFront();
+            this.resizeToFullScreen();
             this.tipLabel.Dispose();
         }
 
@@ -46,7 +46,7 @@ namespace scrollTitle
          */
         private void fetchData(object source, EventArgs e)
         {
-            fetchDataTimer.Enabled = false;
+            this.fetchDataTimer.Enabled = false;
             try
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(api);
@@ -58,13 +58,13 @@ namespace scrollTitle
                 string[] items = dataStr.Split('\n');
                 foreach (string item in items)
                 {
-                    data.Enqueue(item);
+                    this.data.Enqueue(item);
                 }
             }
             catch
             {
             }
-            fetchDataTimer.Enabled = true;
+            this.fetchDataTimer.Enabled = true;
         }
 
         /**
@@ -79,8 +79,8 @@ namespace scrollTitle
             currentLabel.AutoSize = true;
             currentLabel.Top = random.Next(0, this.Height / 2);
             currentLabel.Left = this.Width - 100;
-            currentLabel.Font = new Font("微软雅黑", fontSize, FontStyle.Bold);
-            currentLabel.ForeColor = fontColor;
+            currentLabel.Font = new Font("微软雅黑", this.fontSize, FontStyle.Bold);
+            currentLabel.ForeColor = this.fontColor;
             currentLabel.BackColor = Color.Transparent;
             currentLabel.Tag = random.Next(3, 9);
             currentLabel.Text = str;
@@ -91,8 +91,8 @@ namespace scrollTitle
             if (this.Controls.Count > 20) return;
             try
             {
-                string content = data.Dequeue();
-                shoot(content);
+                string content = this.data.Dequeue();
+                this.shoot(content);
             }
             catch
             {
@@ -128,21 +128,21 @@ namespace scrollTitle
         private void initData()
         {
             data = new Queue<string>();
-            
-            fetchDataTimer = new Timer();
-            fetchDataTimer.Interval = 3000;
-            fetchDataTimer.Tick += new EventHandler(fetchData);
-            fetchDataTimer.Enabled = true;
-            
-            shootDataTimer = new Timer();
-            shootDataTimer.Interval = 500;
-            shootDataTimer.Tick += new EventHandler(shootData);
-            shootDataTimer.Enabled = true;
 
-            moveDataTimer = new Timer();
-            moveDataTimer.Interval = 10;
-            moveDataTimer.Tick += new EventHandler(moveData);
-            moveDataTimer.Enabled = true;
+            this.fetchDataTimer = new Timer();
+            this.fetchDataTimer.Interval = 3000;
+            this.fetchDataTimer.Tick += new EventHandler(fetchData);
+            this.fetchDataTimer.Enabled = true;
+
+            this.shootDataTimer = new Timer();
+            this.shootDataTimer.Interval = 500;
+            this.shootDataTimer.Tick += new EventHandler(shootData);
+            this.shootDataTimer.Enabled = true;
+
+            this.moveDataTimer = new Timer();
+            this.moveDataTimer.Interval = 10;
+            this.moveDataTimer.Tick += new EventHandler(moveData);
+            this.moveDataTimer.Enabled = true;
         }
 
         private string api = "";
@@ -151,7 +151,9 @@ namespace scrollTitle
         public void init(string url, int size, Color color)
         {
             initScreen();
-            api = url; fontSize = size; fontColor = color;
+            this.api = url;
+            this.fontSize = size;
+            this.fontColor = color;
             initData();
         }
 

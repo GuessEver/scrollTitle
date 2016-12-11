@@ -23,7 +23,7 @@ namespace scrollTitle
          */
         private void Settings_Load(object sender, EventArgs e)
         {
-            readInfoFromFile();
+            this.readInfoFromFile();
         }
 
         /**
@@ -56,19 +56,19 @@ namespace scrollTitle
         private string inputFontColor = "";
         private void hostInput_TextChanged(object sender, EventArgs e)
         {
-            inputHostname = ((Control)sender).Text;
+            this.inputHostname = ((Control)sender).Text;
         }
         private void tokenInput_TextChanged(object sender, EventArgs e)
         {
-            inputToken = ((Control)sender).Text;
+            this.inputToken = ((Control)sender).Text;
         }
         private void fontSizeInput_SelectedIndexChanged(object sender, EventArgs e)
         {
-            inputFontSize = ((Control)sender).Text;
+            this.inputFontSize = ((Control)sender).Text;
         }
         private void fontColorInput_SelectedIndexChanged(object sender, EventArgs e)
         {
-            inputFontColor = ((Control)sender).Text;
+            this.inputFontColor = ((Control)sender).Text;
         }
 
         /**
@@ -79,32 +79,32 @@ namespace scrollTitle
         private Color fontColor = Color.Blue;
         private string getUrl()
         {
-            if (inputHostname.Length < 8)
+            if (this.inputHostname.Length < 8)
             {
                 MessageBox.Show("请填写完整主机名！");
                 return "";
             }
-            if (inputHostname.Substring(0, 7) != "http://" && inputHostname.Substring(0, 8) != "https://")
+            if (this.inputHostname.Substring(0, 7) != "http://" && this.inputHostname.Substring(0, 8) != "https://")
             {
                 MessageBox.Show("主机名请以http://或者https://开头！");
                 return "";
             }
-            if (inputHostname.Substring(inputHostname.Length - 1, 1) != "/") inputHostname += "/";
-            return inputHostname + "getData.php?token=" + inputToken;
+            if (this.inputHostname.Substring(this.inputHostname.Length - 1, 1) != "/") this.inputHostname += "/";
+            return this.inputHostname + "getData.php?token=" + this.inputToken;
         }
         private int getFontSize()
         {
-            if (inputFontSize == "大") return 40;
-            else if (inputFontSize == "中") return 30;
-            else if (inputFontSize == "小") return 20;
+            if (this.inputFontSize == "大") return 40;
+            else if (this.inputFontSize == "中") return 30;
+            else if (this.inputFontSize == "小") return 20;
             return 30;
         }
         private Color getFontColor()
         {
-            if (inputFontColor == "蓝色") return Color.Blue;
-            else if (inputFontColor == "黄色") return Color.Yellow;
-            else if (inputFontColor == "黑色") return Color.Black;
-            else if (inputFontColor == "白色") return Color.White;
+            if (this.inputFontColor == "蓝色") return Color.Blue;
+            else if (this.inputFontColor == "黄色") return Color.Yellow;
+            else if (this.inputFontColor == "黑色") return Color.Black;
+            else if (this.inputFontColor == "白色") return Color.White;
             return Color.Blue;
         }
 
@@ -115,10 +115,10 @@ namespace scrollTitle
         {
             url = getUrl();
             if (url == "") return;
-            fontSize = getFontSize();
-            fontColor = getFontColor();
+            this.fontSize = this.getFontSize();
+            this.fontColor = this.getFontColor();
             MessageBox.Show("保存成功！");
-            initScreen();
+            this.initScreen();
         }
 
         private Screen Screen;
