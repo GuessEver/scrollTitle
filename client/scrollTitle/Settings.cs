@@ -186,16 +186,23 @@ namespace scrollTitle
         private Screen Screen;
         private void initScreen()
         {
+            /*
             try
             {
-                Screen.Close();
-                Screen.Dispose();
+                this.Screen.Close();
+                this.Screen.Dispose();
             }
             catch
             {
             }
-            Screen = new Screen();
-            Screen.Show();
+            this.Screen = new Screen();
+            this.Screen.Show();
+            */
+            if (this.Screen == null)
+            {
+                this.Screen = new Screen();
+            }
+            this.Screen.Show();
         }
 
         /**

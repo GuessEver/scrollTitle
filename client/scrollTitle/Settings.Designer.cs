@@ -217,7 +217,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(330, 190);
+            this.ClientSize = new System.Drawing.Size(330, 199);
             this.Controls.Add(this.maxAmountInput);
             this.Controls.Add(this.textRenderPriorityInput);
             this.Controls.Add(this.label5);

@@ -43,13 +43,13 @@ namespace scrollTitle
                     // 抗锯齿效果，占用更多cpu资源
                     g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
                 }
-                SolidBrush fontBrush = new SolidBrush(this.fontColor);
-                SolidBrush fontBorderBrush = new SolidBrush(this.fontBorderColor);
                 //foreach (Title title in titles)
                 for (int i = 0; i < titles.Count; i++)
                 {
                     Title title = (Title)titles[i];
                     PointF point = new PointF(title.left, title.top);
+                    SolidBrush fontBrush = new SolidBrush(title.fontColor);
+                    SolidBrush fontBorderBrush = new SolidBrush(title.fontBorderColor);
 
                     point.X -= 1; // 绘制左背景文字
                     g.DrawString(title.text, title.font, fontBorderBrush, point);

@@ -1,9 +1,9 @@
-# scrollTitle
+﻿# scrollTitle
 windows桌面弹幕
 
+## 如何开始
 下载完整的zip文件，包含client和server
 
-如何定制？
 ### server
 先导入server/title.sql数据库，然后把server文件夹下connection.php配置好
 
@@ -26,4 +26,13 @@ tokendsafdsfdsr222
 token填入你在服务器上的配置
 
 发射弹幕的地址即为你所填的主机名（如http://guessever.me/danmu ）
+
+## Client使用说明
+1. 填入信息 
+2. 按下 `保存数据` 按钮
+3. 按下 `初始化弹幕` 按钮
+
+若中途修改了数据，再依次按 `保存数据` 和 `初始化弹幕` 按钮即可
+
+## 注意事项
 
