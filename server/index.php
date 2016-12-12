@@ -24,6 +24,6 @@ if(isset($_POST['text']) && $_POST['text'] !== '') {
 	$sql->bindValue(':content', $text, PDO::PARAM_STR);
 	$sql->bindValue(':status', 0, PDO::PARAM_INT);
 	$sql->execute();
-	echo '<p style="color:red;">弹幕发射成功, ' . date('Y-m-d H:m:s', time()) . '</p>';
+	echo '<p style="color:red;">弹幕发射成功, ' . date('Y-m-d H:i:s', time()) . '</p>';
 }
 $_POST['text'] = '';
