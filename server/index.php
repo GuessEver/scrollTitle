@@ -8,12 +8,9 @@
 		<h3>数学科学学院2015-2016迎新晚会</h3>
 		<h2>弹幕君</h2>
 		<hr>
-		<p>啥？弹幕？！这么屌？</p>
-		<p>对，我们就是这么屌！</p>
-		<p><br></p>
 		<p>输入文字，点击发射，引爆全场！！！</p>
 		<form action="" method="post">
-			<p><input type="text" name="text" autofocus></p>
+			<p><input type="text" name="text" maxlength="30" autofocus></p>
 			<p><input type="submit" value="发射"></p>
 		</form>
 	</body>
@@ -21,6 +18,7 @@
 <?php
 if(isset($_POST['text']) && $_POST['text'] !== '') {
 	require_once('connection.php');
+	if(strlen($text) > 30) $text = substr($text, 0, 30);
 	$text = urlencode($_POST['text']);
 	$sql = $pdo->prepare('INSERT INTO `title` (`content`, `status`) VALUES (:content, :status);');
 	$sql->bindValue(':content', $text, PDO::PARAM_STR);
