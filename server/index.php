@@ -22,11 +22,10 @@
 if(isset($_POST['text']) && $_POST['text'] !== '') {
 	require_once('connection.php');
 	$text = urlencode($_POST['text']);
-	@mysql_query('INSERT INTO `title` 
-		(`content`, `status`)
-		VALUES
-		("'.$text.'", "0")
-		;');
-	echo '<p style="color:red;">弹幕发射成功</p>';
+	$sql = $pdo->prepare('INSERT INTO `title` (`content`, `status`) VALUES (:content, :status);');
+	$sql->bindValue(':content', $text, PDO::PARAM_STR);
+	$sql->bindValue(':status', 0, PDO::PARAM_INT);
+	$sql->execute();
+	echo '<p style="color:red;">弹幕发射成功, ' . date('Y-m-d H:m:s', time()) . '</p>';
 }
 $_POST['text'] = '';
