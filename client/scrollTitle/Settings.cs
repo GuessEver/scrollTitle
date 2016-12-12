@@ -186,23 +186,15 @@ namespace scrollTitle
         private Screen Screen;
         private void initScreen()
         {
-            /*
             try
             {
-                this.Screen.Close();
-                this.Screen.Dispose();
+                this.Screen.Show();
             }
             catch
             {
-            }
-            this.Screen = new Screen();
-            this.Screen.Show();
-            */
-            if (this.Screen == null)
-            {
                 this.Screen = new Screen();
+                this.Screen.Show();
             }
-            this.Screen.Show();
         }
 
         /**
@@ -215,7 +207,8 @@ namespace scrollTitle
                 MessageBox.Show("请先保存数据！");
                 return;
             }
-            Screen.init(this.url, this.fontSize, this.fontColor, this.fontBorderColor, this.speed, this.maxAmount, this.textRenderAntiAliasGridFit);
+            this.Screen.init(this.url, this.fontSize, this.fontColor, this.fontBorderColor, this.speed, this.maxAmount, this.textRenderAntiAliasGridFit);
+            this.initScreen();
         }
 
         /**
@@ -223,7 +216,7 @@ namespace scrollTitle
          */
         private void clearScreenButton_Click(object sender, EventArgs e)
         {
-            Screen.clearScreen();
+            this.Screen.clearScreen();
         }
 
         /**
@@ -231,7 +224,7 @@ namespace scrollTitle
          */
         private void closeScreenButton_Click(object sender, EventArgs e)
         {
-            Screen.Close();
+            this.Screen.Hide();
         }
     }
 }
