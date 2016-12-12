@@ -55,6 +55,8 @@ namespace scrollTitle
         private string inputFontSize = "";
         private string inputFontColor = "";
         private string inputSpeed = "";
+        private string inputMaxAmount = "";
+        private string inputTextRenderPriority = "";
         private void hostInput_TextChanged(object sender, EventArgs e)
         {
             this.inputHostname = ((Control)sender).Text;
@@ -71,9 +73,17 @@ namespace scrollTitle
         {
             this.inputFontColor = ((Control)sender).Text;
         }
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void speedInput_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.inputSpeed = ((Control)sender).Text;
+        }
+        private void maxAmountInput_TextChanged(object sender, EventArgs e)
+        {
+            this.inputMaxAmount = ((Control)sender).Text;
+        }
+        private void textRenderPriorityInput_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.inputTextRenderPriority = ((Control)sender).Text;
         }
 
         /**
@@ -84,6 +94,8 @@ namespace scrollTitle
         private Color fontColor = Color.Blue;
         private Color fontBorderColor = Color.White;
         private int speed = 7;
+        private int maxAmount = 15;
+        private bool textRenderAntiAliasGridFit = true;
         private string getUrl()
         {
             if (this.inputHostname.Length < 8)
@@ -101,25 +113,57 @@ namespace scrollTitle
         }
         private int getFontSize()
         {
-            if (this.inputFontSize == "大") return 40;
-            else if (this.inputFontSize == "中") return 30;
-            else if (this.inputFontSize == "小") return 20;
-            return 30;
+            switch (this.inputFontSize)
+            {
+                case "大": return 40;
+                case "小": return 20;
+                case "中": default: return 30;
+            }
         }
         private Color getFontColor()
         {
-            if (this.inputFontColor == "蓝色") return Color.Blue;
-            else if (this.inputFontColor == "黄色") return Color.Yellow;
-            else if (this.inputFontColor == "黑色") return Color.Black;
-            else if (this.inputFontColor == "白色") return Color.White;
-            return Color.Blue;
+            switch (this.inputFontColor)
+            {
+                case "黄色": return Color.Yellow;
+                case "黑色": return Color.Black;
+                case "白色": return Color.White;
+                case "蓝色": default: return Color.Blue;
+            }
+        }
+        private Color getFontBorderColor()
+        {
+            switch (this.inputFontColor)
+            {
+                case "黄色": return Color.Red;
+                case "黑色": return Color.White;
+                case "白色": return Color.Black;
+                case "蓝色": default: return Color.White;
+            }
         }
         private int getSpeed()
         {
-            if (this.inputSpeed == "慢速") return 3;
-            else if (this.inputSpeed == "中速") return 7;
-            else if (this.inputSpeed == "快速") return 11;
-            return 7;
+            switch (this.inputSpeed)
+            {
+                case "慢速": return 3;
+                case "快速": return 11;
+                case "中速": default: return 7;
+            }
+        }
+        private int getMaxAmount()
+        {
+            try
+            {
+                return Int32.Parse(this.inputMaxAmount);
+            }
+            catch
+            {
+                return 15;
+            }
+        }
+        private bool getTextRenderPriority()
+        {
+            if (this.inputTextRenderPriority == "画质优先") return true;
+            return false;
         }
 
         /**
@@ -131,15 +175,10 @@ namespace scrollTitle
             if (url == "") return;
             this.fontSize = this.getFontSize();
             this.fontColor = this.getFontColor();
-            if (this.fontColor == Color.White)
-            {
-                this.fontBorderColor = Color.Black;
-            }
-            else
-            {
-                this.fontBorderColor = Color.White;
-            }
+            this.fontBorderColor = this.getFontBorderColor();
             this.speed = this.getSpeed();
+            this.maxAmount = this.getMaxAmount();
+            this.textRenderAntiAliasGridFit = this.getTextRenderPriority();
             MessageBox.Show("保存成功！");
             this.initScreen();
         }
@@ -169,7 +208,7 @@ namespace scrollTitle
                 MessageBox.Show("请先保存数据！");
                 return;
             }
-            Screen.init(this.url, this.fontSize, this.fontColor, this.fontBorderColor, this.speed);
+            Screen.init(this.url, this.fontSize, this.fontColor, this.fontBorderColor, this.speed, this.maxAmount, this.textRenderAntiAliasGridFit);
         }
 
         /**

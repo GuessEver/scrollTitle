@@ -38,12 +38,34 @@ namespace scrollTitle
                 //Graphics g = this.CreateGraphics();
                 Graphics g = Graphics.FromImage(bmp);
                 g.Clear(this.BackColor);
+                if (this.textRenderAntiAliasGridFit) // 画质优先
+                {
+                    // 抗锯齿效果，占用更多cpu资源
+                    g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
+                }
+                SolidBrush fontBrush = new SolidBrush(this.fontColor);
+                SolidBrush fontBorderBrush = new SolidBrush(this.fontBorderColor);
                 //foreach (Title title in titles)
                 for (int i = 0; i < titles.Count; i++)
                 {
                     Title title = (Title)titles[i];
-                    SolidBrush brush = new SolidBrush(title.fontColor);
-                    g.DrawString(title.text, title.font, brush, new PointF(title.left, title.top));
+                    PointF point = new PointF(title.left, title.top);
+
+                    point.X -= 1; // 绘制左背景文字
+                    g.DrawString(title.text, title.font, fontBorderBrush, point);
+
+                    point.X += 2; // 绘制右背景文字
+                    g.DrawString(title.text, title.font, fontBorderBrush, point);
+
+                    point.X -= 1; point.Y -= 1; // 绘制上背景文字
+                    g.DrawString(title.text, title.font, fontBorderBrush, point);
+
+                    point.Y += 2; // 绘制下背景文字
+                    g.DrawString(title.text, title.font, fontBorderBrush, point);
+
+                    point.Y -= 1; // 绘制前景文字
+                    g.DrawString(title.text, title.font, fontBrush, point);
+
                 }
                 e.Graphics.DrawImage(bmp, 0, 0);
                 g.Dispose();
@@ -60,13 +82,8 @@ namespace scrollTitle
             this.WindowState = FormWindowState.Maximized;
             this.FormBorderStyle = FormBorderStyle.None;
         }
-        Timer bringToFrontTimer;
         private void initScreen()
         {
-            bringToFrontTimer = new Timer();
-            bringToFrontTimer.Interval = 1000;
-            bringToFrontTimer.Tick += BringToFrontTimer_Tick;
-            bringToFrontTimer.Enabled = true;
             this.TransparencyKey = this.BackColor;
             this.bringToFront();
             this.resizeToFullScreen();
@@ -113,8 +130,7 @@ namespace scrollTitle
         }
         private void ShootDataTimer_Tick(object sender, EventArgs e)
         {
-            // 保持屏幕最多 20 条
-            if (this.titles.Count > 20) return;
+            if (this.titles.Count > this.maxAmount) return;
             try
             {
                 string content = this.data.Dequeue();
@@ -175,7 +191,9 @@ namespace scrollTitle
         private Color fontColor;
         private Color fontBorderColor;
         private int speed;
-        public void init(string url, int size, Color color, Color borderColor, int speed)
+        private int maxAmount;
+        private bool textRenderAntiAliasGridFit;
+        public void init(string url, int size, Color color, Color borderColor, int speed, int maxAmount, bool textRenderAntiAliasGridFit)
         {
             initScreen();
             bmp = new Bitmap(this.Width, this.Height);
@@ -184,6 +202,8 @@ namespace scrollTitle
             this.fontColor = color;
             this.fontBorderColor = borderColor;
             this.speed = speed;
+            this.maxAmount = maxAmount;
+            this.textRenderAntiAliasGridFit = textRenderAntiAliasGridFit;
             initData();
         }
 

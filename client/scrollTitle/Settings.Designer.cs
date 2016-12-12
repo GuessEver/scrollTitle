@@ -40,7 +40,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.fontSizeInput = new System.Windows.Forms.ComboBox();
             this.fontColorInput = new System.Windows.Forms.ComboBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.speedInput = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textRenderPriorityInput = new System.Windows.Forms.ComboBox();
+            this.maxAmountInput = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -165,26 +168,60 @@
             this.fontColorInput.Text = "蓝色";
             this.fontColorInput.SelectedIndexChanged += new System.EventHandler(this.fontColorInput_SelectedIndexChanged);
             // 
-            // comboBox1
+            // speedInput
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.speedInput.FormattingEnabled = true;
+            this.speedInput.Items.AddRange(new object[] {
             "慢速",
             "中速",
             "快速"});
-            this.comboBox1.Location = new System.Drawing.Point(270, 136);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(48, 20);
-            this.comboBox1.TabIndex = 12;
-            this.comboBox1.Text = "中速";
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.speedInput.Location = new System.Drawing.Point(270, 136);
+            this.speedInput.Name = "speedInput";
+            this.speedInput.Size = new System.Drawing.Size(48, 20);
+            this.speedInput.TabIndex = 12;
+            this.speedInput.Text = "中速";
+            this.speedInput.SelectedIndexChanged += new System.EventHandler(this.speedInput_SelectedIndexChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(106, 168);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(89, 12);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "屏幕最多弹幕数";
+            // 
+            // textRenderPriorityInput
+            // 
+            this.textRenderPriorityInput.FormattingEnabled = true;
+            this.textRenderPriorityInput.Items.AddRange(new object[] {
+            "画质优先",
+            "速度优先"});
+            this.textRenderPriorityInput.Location = new System.Drawing.Point(15, 163);
+            this.textRenderPriorityInput.Name = "textRenderPriorityInput";
+            this.textRenderPriorityInput.Size = new System.Drawing.Size(72, 20);
+            this.textRenderPriorityInput.TabIndex = 14;
+            this.textRenderPriorityInput.Text = "画质优先";
+            this.textRenderPriorityInput.SelectedIndexChanged += new System.EventHandler(this.textRenderPriorityInput_SelectedIndexChanged);
+            // 
+            // maxAmountInput
+            // 
+            this.maxAmountInput.Location = new System.Drawing.Point(204, 163);
+            this.maxAmountInput.Name = "maxAmountInput";
+            this.maxAmountInput.Size = new System.Drawing.Size(59, 21);
+            this.maxAmountInput.TabIndex = 15;
+            this.maxAmountInput.Text = "15";
+            this.maxAmountInput.TextChanged += new System.EventHandler(this.maxAmountInput_TextChanged);
             // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(330, 169);
-            this.Controls.Add(this.comboBox1);
+            this.ClientSize = new System.Drawing.Size(330, 190);
+            this.Controls.Add(this.maxAmountInput);
+            this.Controls.Add(this.textRenderPriorityInput);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.speedInput);
             this.Controls.Add(this.fontColorInput);
             this.Controls.Add(this.fontSizeInput);
             this.Controls.Add(this.label4);
@@ -219,6 +256,9 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox fontSizeInput;
         private System.Windows.Forms.ComboBox fontColorInput;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox speedInput;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox textRenderPriorityInput;
+        private System.Windows.Forms.TextBox maxAmountInput;
     }
 }
