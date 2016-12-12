@@ -60,18 +60,27 @@ namespace scrollTitle
             this.WindowState = FormWindowState.Maximized;
             this.FormBorderStyle = FormBorderStyle.None;
         }
+        Timer bringToFrontTimer;
         private void initScreen()
         {
+            bringToFrontTimer = new Timer();
+            bringToFrontTimer.Interval = 1000;
+            bringToFrontTimer.Tick += BringToFrontTimer_Tick;
+            bringToFrontTimer.Enabled = true;
             this.TransparencyKey = this.BackColor;
             this.bringToFront();
             this.resizeToFullScreen();
             this.tipLabel.Dispose();
         }
+        private void BringToFrontTimer_Tick(object sender, EventArgs e)
+        {
+            this.TopMost = true;
+        }
 
         /**
          * 从服务器获取数据并存入队列
          */
-        private void fetchData(object source, EventArgs e)
+        private void FetchDataTimer_Tick(object sender, EventArgs e)
         {
             this.fetchDataTimer.Stop();
             try
@@ -102,7 +111,7 @@ namespace scrollTitle
             Title title = new Title(str, this.fontSize, this.fontColor, this.fontBorderColor, this.Width, random.Next(0, this.Height * 3 / 5), random.Next(this.speed, 10 + this.speed));
             titles.Add(title);
         }
-        private void shootData(object source, EventArgs e)
+        private void ShootDataTimer_Tick(object sender, EventArgs e)
         {
             // 保持屏幕最多 20 条
             if (this.titles.Count > 20) return;
@@ -118,10 +127,10 @@ namespace scrollTitle
          * 移动弹幕
          * 若移除边界则销毁
          */
-        private void moveData(Object source, EventArgs e)
+        private void MoveDataTimer_Tick(object sender, EventArgs e)
         {
             //foreach (Title title in titles)
-            for(int i = 0; i < titles.Count; i++)
+            for (int i = 0; i < titles.Count; i++)
             {
                 Title title = (Title)titles[i];
                 title.left -= title.speed;
@@ -132,6 +141,7 @@ namespace scrollTitle
             }
             this.Invalidate();
         }
+
 
         /**
          * 初始化数据
@@ -146,17 +156,17 @@ namespace scrollTitle
 
             this.fetchDataTimer = new Timer();
             this.fetchDataTimer.Interval = 3000;
-            this.fetchDataTimer.Tick += new EventHandler(fetchData);
+            this.fetchDataTimer.Tick += FetchDataTimer_Tick;
             this.fetchDataTimer.Enabled = true;
 
             this.shootDataTimer = new Timer();
             this.shootDataTimer.Interval = 500;
-            this.shootDataTimer.Tick += new EventHandler(shootData);
+            this.shootDataTimer.Tick += ShootDataTimer_Tick; ;
             this.shootDataTimer.Enabled = true;
 
             this.moveDataTimer = new Timer();
             this.moveDataTimer.Interval = 20;
-            this.moveDataTimer.Tick += new EventHandler(moveData);
+            this.moveDataTimer.Tick += MoveDataTimer_Tick;
             this.moveDataTimer.Enabled = true;
         }
 
