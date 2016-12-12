@@ -40,6 +40,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.fontSizeInput = new System.Windows.Forms.ComboBox();
             this.fontColorInput = new System.Windows.Forms.ComboBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -164,11 +165,26 @@
             this.fontColorInput.Text = "蓝色";
             this.fontColorInput.SelectedIndexChanged += new System.EventHandler(this.fontColorInput_SelectedIndexChanged);
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "慢速",
+            "中速",
+            "快速"});
+            this.comboBox1.Location = new System.Drawing.Point(270, 136);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(48, 20);
+            this.comboBox1.TabIndex = 12;
+            this.comboBox1.Text = "中速";
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(330, 169);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.fontColorInput);
             this.Controls.Add(this.fontSizeInput);
             this.Controls.Add(this.label4);
@@ -203,5 +219,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox fontSizeInput;
         private System.Windows.Forms.ComboBox fontColorInput;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

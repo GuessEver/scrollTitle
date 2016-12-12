@@ -12,7 +12,9 @@ namespace scrollTitle
     class Title
     {
         public string text;
-        public int speed, width, top, left;
+        public int speed;
+        public int top, left;
+        public int width, height;
         public Font font;
         public Color fontColor, fontBorderColor;
         public Title(string str, int fontSize, Color fontColor, Color fontBorderColor, int left, int top, int speed)
@@ -28,6 +30,7 @@ namespace scrollTitle
             Label currentLabel = new Label();
             Graphics graphics = currentLabel.CreateGraphics();
             this.width = (int)graphics.MeasureString(str, this.font).Width;
+            this.height = (int)graphics.MeasureString(str, this.font).Height;
         }
     }
 }

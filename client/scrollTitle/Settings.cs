@@ -54,6 +54,7 @@ namespace scrollTitle
         private string inputToken = "";
         private string inputFontSize = "";
         private string inputFontColor = "";
+        private string inputSpeed = "";
         private void hostInput_TextChanged(object sender, EventArgs e)
         {
             this.inputHostname = ((Control)sender).Text;
@@ -70,6 +71,10 @@ namespace scrollTitle
         {
             this.inputFontColor = ((Control)sender).Text;
         }
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.inputSpeed = ((Control)sender).Text;
+        }
 
         /**
          * 转换输入为正确格式
@@ -78,6 +83,7 @@ namespace scrollTitle
         private int fontSize = 30;
         private Color fontColor = Color.Blue;
         private Color fontBorderColor = Color.White;
+        private int speed = 7;
         private string getUrl()
         {
             if (this.inputHostname.Length < 8)
@@ -108,6 +114,13 @@ namespace scrollTitle
             else if (this.inputFontColor == "白色") return Color.White;
             return Color.Blue;
         }
+        private int getSpeed()
+        {
+            if (this.inputSpeed == "慢速") return 3;
+            else if (this.inputSpeed == "中速") return 7;
+            else if (this.inputSpeed == "快速") return 11;
+            return 7;
+        }
 
         /**
          * 保存数据
@@ -126,6 +139,7 @@ namespace scrollTitle
             {
                 this.fontBorderColor = Color.White;
             }
+            this.speed = this.getSpeed();
             MessageBox.Show("保存成功！");
             this.initScreen();
         }
@@ -155,7 +169,7 @@ namespace scrollTitle
                 MessageBox.Show("请先保存数据！");
                 return;
             }
-            Screen.init(this.url, this.fontSize, this.fontColor, this.fontBorderColor);
+            Screen.init(this.url, this.fontSize, this.fontColor, this.fontBorderColor, this.speed);
         }
 
         /**

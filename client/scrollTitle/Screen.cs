@@ -20,23 +20,35 @@ namespace scrollTitle
         public Screen()
         {
             InitializeComponent();
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            this.SetStyle(ControlStyles.UserPaint, true);
         }
-
+        
         private void Screen_Load(object sender, EventArgs e)
         {
             this.Paint += Screen_Paint;
         }
-        
+
+        Bitmap bmp;// = new Bitmap(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width, System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height);
         void Screen_Paint(object sender, PaintEventArgs e)
         {
-            Graphics g = this.CreateGraphics();
-            //foreach (Title title in titles)
-            for (int i = 0; i < titles.Count; i++)
+            try
             {
-                Title title = (Title)titles[i];
-                SolidBrush brush = new SolidBrush(title.fontColor);
-                g.DrawString(title.text, title.font, brush, new PointF(title.left, title.top));
+                //Graphics g = this.CreateGraphics();
+                Graphics g = Graphics.FromImage(bmp);
+                g.Clear(this.BackColor);
+                //foreach (Title title in titles)
+                for (int i = 0; i < titles.Count; i++)
+                {
+                    Title title = (Title)titles[i];
+                    SolidBrush brush = new SolidBrush(title.fontColor);
+                    g.DrawString(title.text, title.font, brush, new PointF(title.left, title.top));
+                }
+                e.Graphics.DrawImage(bmp, 0, 0);
+                g.Dispose();
             }
+            catch { }
         }
 
         private void bringToFront()
@@ -87,12 +99,13 @@ namespace scrollTitle
         ArrayList titles = new ArrayList();
         private void shoot(string str)
         {
-            Title title = new Title(str, this.fontSize, this.fontColor, this.fontBorderColor, this.Width - 100, random.Next(0, this.Height * 2 / 5), random.Next(3, 9));
+            Title title = new Title(str, this.fontSize, this.fontColor, this.fontBorderColor, this.Width, random.Next(0, this.Height * 3 / 5), random.Next(this.speed, 10 + this.speed));
             titles.Add(title);
         }
         private void shootData(object source, EventArgs e)
         {
-            if (this.Controls.Count > 10) return;
+            // 保持屏幕最多 20 条
+            if (this.titles.Count > 20) return;
             try
             {
                 string content = this.data.Dequeue();
@@ -142,7 +155,7 @@ namespace scrollTitle
             this.shootDataTimer.Enabled = true;
 
             this.moveDataTimer = new Timer();
-            this.moveDataTimer.Interval = 50;
+            this.moveDataTimer.Interval = 20;
             this.moveDataTimer.Tick += new EventHandler(moveData);
             this.moveDataTimer.Enabled = true;
         }
@@ -151,13 +164,16 @@ namespace scrollTitle
         private int fontSize;
         private Color fontColor;
         private Color fontBorderColor;
-        public void init(string url, int size, Color color, Color borderColor)
+        private int speed;
+        public void init(string url, int size, Color color, Color borderColor, int speed)
         {
             initScreen();
+            bmp = new Bitmap(this.Width, this.Height);
             this.api = url;
             this.fontSize = size;
             this.fontColor = color;
             this.fontBorderColor = borderColor;
+            this.speed = speed;
             initData();
         }
 
@@ -166,13 +182,8 @@ namespace scrollTitle
          */
         public void clearScreen()
         {
-            foreach (Control item in this.Controls)
-            {
-                if (item is Label)
-                {
-                    this.Controls.Remove(item);
-                }
-            }
+            titles.Clear();
+            this.Invalidate();
         }
     }
 }
