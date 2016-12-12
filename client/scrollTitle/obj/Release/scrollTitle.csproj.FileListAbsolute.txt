@@ -1,9 +1,0 @@
-C:\Users\Guess\Desktop\scrollTitle\client\scrollTitle\bin\Release\scrollTitle.exe.config
-C:\Users\Guess\Desktop\scrollTitle\client\scrollTitle\bin\Release\scrollTitle.exe
-C:\Users\Guess\Desktop\scrollTitle\client\scrollTitle\bin\Release\scrollTitle.pdb
-C:\Users\Guess\Desktop\scrollTitle\client\scrollTitle\obj\Release\scrollTitle.Properties.Resources.resources
-C:\Users\Guess\Desktop\scrollTitle\client\scrollTitle\obj\Release\scrollTitle.Screen.resources
-C:\Users\Guess\Desktop\scrollTitle\client\scrollTitle\obj\Release\scrollTitle.Settings.resources
-C:\Users\Guess\Desktop\scrollTitle\client\scrollTitle\obj\Release\scrollTitle.csproj.GenerateResource.Cache
-C:\Users\Guess\Desktop\scrollTitle\client\scrollTitle\obj\Release\scrollTitle.exe
-C:\Users\Guess\Desktop\scrollTitle\client\scrollTitle\obj\Release\scrollTitle.pdb
