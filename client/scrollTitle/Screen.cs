@@ -46,7 +46,7 @@ namespace scrollTitle
          */
         private void fetchData(object source, EventArgs e)
         {
-            this.fetchDataTimer.Enabled = false;
+            this.fetchDataTimer.Stop();
             try
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(api);
@@ -61,10 +61,8 @@ namespace scrollTitle
                     this.data.Enqueue(item);
                 }
             }
-            catch
-            {
-            }
-            this.fetchDataTimer.Enabled = true;
+            catch { }
+            this.fetchDataTimer.Start();
         }
 
         /**
@@ -73,30 +71,19 @@ namespace scrollTitle
         Random random = new Random();
         private void shoot(string str)
         {
-            Label currentLabel = new Label();
-            //currentLabel.Height = 100;
-            //currentLabel.Width = 9999;
-            currentLabel.AutoSize = true;
-            currentLabel.Top = random.Next(0, this.Height / 2);
-            currentLabel.Left = this.Width - 100;
-            currentLabel.Font = new Font("微软雅黑", this.fontSize, FontStyle.Bold);
-            currentLabel.ForeColor = this.fontColor;
-            currentLabel.BackColor = Color.Transparent;
-            currentLabel.Tag = random.Next(3, 9);
-            currentLabel.Text = str;
-            this.Controls.Add(currentLabel);
+            Title t = new Title(str, this.fontSize, this.fontColor, this.fontBorderColor, this.Width - 100, random.Next(0, this.Height * 2 / 5));
+            t.Tag = random.Next(3, 9); // speed: t.Tag (px) / this.moveDataTimer.Interval (ms)
+            this.Controls.Add(t);
         }
         private void shootData(object source, EventArgs e)
         {
-            if (this.Controls.Count > 20) return;
+            if (this.Controls.Count > 10) return;
             try
             {
                 string content = this.data.Dequeue();
                 this.shoot(content);
             }
-            catch
-            {
-            }
+            catch { }
         }
 
         /**
@@ -105,6 +92,7 @@ namespace scrollTitle
          */
         private void moveData(Object source, EventArgs e)
         {
+            this.moveDataTimer.Stop();
             foreach (Control item in this.Controls)
             {
                 if (item is Label)
@@ -116,6 +104,7 @@ namespace scrollTitle
                     }
                 }
             }
+            this.moveDataTimer.Start();
         }
 
         /**
@@ -148,12 +137,14 @@ namespace scrollTitle
         private string api = "";
         private int fontSize;
         private Color fontColor;
-        public void init(string url, int size, Color color)
+        private Color fontBorderColor;
+        public void init(string url, int size, Color color, Color borderColor)
         {
             initScreen();
             this.api = url;
             this.fontSize = size;
             this.fontColor = color;
+            this.fontBorderColor = borderColor;
             initData();
         }
 

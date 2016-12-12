@@ -77,6 +77,7 @@ namespace scrollTitle
         private string url = "";
         private int fontSize = 30;
         private Color fontColor = Color.Blue;
+        private Color fontBorderColor = Color.White;
         private string getUrl()
         {
             if (this.inputHostname.Length < 8)
@@ -117,6 +118,14 @@ namespace scrollTitle
             if (url == "") return;
             this.fontSize = this.getFontSize();
             this.fontColor = this.getFontColor();
+            if (this.fontColor == Color.White)
+            {
+                this.fontBorderColor = Color.Black;
+            }
+            else
+            {
+                this.fontBorderColor = Color.White;
+            }
             MessageBox.Show("保存成功！");
             this.initScreen();
         }
@@ -146,7 +155,7 @@ namespace scrollTitle
                 MessageBox.Show("请先保存数据！");
                 return;
             }
-            Screen.init(url, fontSize, fontColor);
+            Screen.init(this.url, this.fontSize, this.fontColor, this.fontBorderColor);
         }
 
         /**
