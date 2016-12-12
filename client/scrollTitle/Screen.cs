@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -21,8 +24,20 @@ namespace scrollTitle
 
         private void Screen_Load(object sender, EventArgs e)
         {
+            this.Paint += Screen_Paint;
         }
         
+        void Screen_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = this.CreateGraphics();
+            //foreach (Title title in titles)
+            for (int i = 0; i < titles.Count; i++)
+            {
+                Title title = (Title)titles[i];
+                SolidBrush brush = new SolidBrush(title.fontColor);
+                g.DrawString(title.text, title.font, brush, new PointF(title.left, title.top));
+            }
+        }
 
         private void bringToFront()
         {
@@ -69,11 +84,11 @@ namespace scrollTitle
          * 发射弹幕
          */
         Random random = new Random();
+        ArrayList titles = new ArrayList();
         private void shoot(string str)
         {
-            Title t = new Title(str, this.fontSize, this.fontColor, this.fontBorderColor, this.Width - 100, random.Next(0, this.Height * 2 / 5));
-            t.Tag = random.Next(3, 9); // speed: t.Tag (px) / this.moveDataTimer.Interval (ms)
-            this.Controls.Add(t);
+            Title title = new Title(str, this.fontSize, this.fontColor, this.fontBorderColor, this.Width - 100, random.Next(0, this.Height * 2 / 5), random.Next(3, 9));
+            titles.Add(title);
         }
         private void shootData(object source, EventArgs e)
         {
@@ -92,19 +107,17 @@ namespace scrollTitle
          */
         private void moveData(Object source, EventArgs e)
         {
-            this.moveDataTimer.Stop();
-            foreach (Control item in this.Controls)
+            //foreach (Title title in titles)
+            for(int i = 0; i < titles.Count; i++)
             {
-                if (item is Label)
+                Title title = (Title)titles[i];
+                title.left -= title.speed;
+                if (title.left + title.width < 0)
                 {
-                    item.Left = item.Left - (int)item.Tag;
-                    if (item.Left + item.Width < 0)
-                    {
-                        this.Controls.Remove(item);
-                    }
+                    titles.Remove(title);
                 }
             }
-            this.moveDataTimer.Start();
+            this.Invalidate();
         }
 
         /**
@@ -129,7 +142,7 @@ namespace scrollTitle
             this.shootDataTimer.Enabled = true;
 
             this.moveDataTimer = new Timer();
-            this.moveDataTimer.Interval = 10;
+            this.moveDataTimer.Interval = 50;
             this.moveDataTimer.Tick += new EventHandler(moveData);
             this.moveDataTimer.Enabled = true;
         }
