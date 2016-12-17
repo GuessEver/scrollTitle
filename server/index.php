@@ -26,10 +26,24 @@ if(isset($_POST['text']) && $_POST['text'] !== '') {
 			<p><input type="text" name="text" maxlength="30" autofocus></p>
 			<p><input type="submit" value="发射"></p>
 		</form>
+		<p>
+		<?php
+		$messages = json_decode(file_get_contents('quickMessages.json'), true);
+		foreach($messages as $message) { ?>
+			<button type="button" onclick="send('<?php echo $message;?>')"><?php echo $message; ?></button>
+		<?php } ?>
+		</p>
 		<?php
 		if(isset($_GET['result']) && $_GET['result'] === 'success') {
 			echo '<p style="color:red;">弹幕发射成功, ' . date('Y-m-d H:i:s', time()) . '</p>';
 		}
 		?>
+		<script>
+		function send(message) {
+			document.querySelector('form input[type=text]').value = message;
+			document.querySelector('form').submit();
+		}
+		</script>
+
 	</body>
 </html>
