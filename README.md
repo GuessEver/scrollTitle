@@ -1,5 +1,7 @@
-﻿# scrollTitle
+# scrollTitle
 windows桌面弹幕
+
+new version https://github.com/GuessEver/WeDanmaku
 
 ## 如何开始
 下载完整的zip文件，包含client和server
